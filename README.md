@@ -21,10 +21,6 @@ This research is driven by two central objectives:
 
 - An **outcome-supervised training strategy** for reranker optimization  
 
-- Extensive experiments on:
-  - **HotpotQA**
-  - **2WikiMultiHopQA**
-
 
 ## ⚙️ Method Overview
 
