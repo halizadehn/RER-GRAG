@@ -1,4 +1,4 @@
-def mcnemar_llm_flag(
+def mcnemar(
     csv_a: str,
     csv_b: str,
     qid_col: str = "qid",
