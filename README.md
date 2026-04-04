@@ -50,4 +50,4 @@ This research is driven by two central objectives:
 - Sentence-level (e.g., Paraphrase, Formality)
 
 ### Metrics
-- **Accuracy (ACC)**
+- Accuracy (ACC)
