@@ -10,3 +10,30 @@ The experiments use 12 query perturbations organized into three linguistic level
 - **Word:** `SynonymSwap`, `NeutralInsertion`, `NeighborSwap`, `NeutralDeletion`
 - **Sentence:** `Paraphrase`, `Formality`, `Politeness`, `Readability`
 
+Generate all perturbations for a dataset:
+
+```bash
+python Perturbations/perturbation_generation.py \
+  --input Data/<DATASET>/questions_answers.csv \
+  --output-dir Perturbations/<DATASET> \
+  --level all
+```
+
+Generate a single perturbation level:
+
+```bash
+python Perturbations/perturbation_generation.py \
+  --input Data/<DATASET>/questions_answers.csv \
+  --output-dir Perturbations/<DATASET> \
+  --level character
+```
+
+Generate a single perturbation type:
+
+```bash
+python Perturbations/perturbation_generation.py \
+  --input Data/<DATASET>/questions_answers.csv \
+  --output-dir Perturbations/<DATASET> \
+  --level character \
+  --type RandSwap
+```
