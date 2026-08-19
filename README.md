@@ -6,7 +6,7 @@ This repository provides the implementation and experimental resources for study
 
 The experiments use 12 query perturbations organized into three linguistic levels:
 
-- **Character:** `RandSwap`, `NeighborSwap`, `AdjacentSwap`, `RandDeletion`
-- **Word:** `SynonymSwap`, `NeighborSwap`, `NeutralInsertion`, `NeutralDeletion`
+- **Character:** `NeighborSwap`, `RandSwap`, `AdjacentSwap`, `RandDeletion`
+- **Word:** `SynonymSwap`, `NeutralInsertion`, `NeighborSwap`, `NeutralDeletion`
 - **Sentence:** `Paraphrase`, `Formality`, `Politeness`, `Readability`
 
