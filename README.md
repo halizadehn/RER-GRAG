@@ -1,49 +1,12 @@
-# Understanding and Mitigating Query Perturbation Failures in Graph-based RAG
+# Query Perturbation Robustness in GraphRAG: Analysis and Mitigation through Entity Reranking
 
+This repository provides the implementation and experimental resources for studying the robustness of Graph-based Retrieval-Augmented Generation (GraphRAG) under query perturbations and mitigating perturbation-induced failures through entity reranking. The study evaluates character-, word-, and sentence-level query variations on HotpotQA and 2WikiMultiHopQA and introduces RER-GRAG and its outcome-supervised trained variant, Tr-RER-GRAG, which rerank an expanded candidate entity pool before graph expansion. The repository includes the datasets and fixed train/test splits, GraphRAG knowledge-graph artifacts, perturbation-generation scripts and generated perturbation files, reranker training and evaluation code, and scripts required to reproduce the analyses reported in the paper.
 
-## 📌 Overview
+## Query Perturbation Generation
 
-Graph-based Retrieval-Augmented Generation (GraphRAG) has emerged as a promising framework for multi-hop question answering by integrating graph-structured retrieval with large language model (LLM) generation. 
-Nevertheless, its robustness to query perturbations remains underexplored, even though real-world information needs are frequently expressed through noisy, reformulated, or stylistically diverse queries. 
-This research is driven by two central objectives:
-- to quantify the impact of different types of query perturbations on GraphRAG performance, and
-- to mitigate perturbation-induced failures specific to the GraphRAGpipeline by addressing them at early stages, before they propagate to downstream components such as graph expansion.
+The experiments use 12 query perturbations organized into three linguistic levels:
 
+- **Character:** `RandSwap`, `NeighborSwap`, `AdjacentSwap`, `RandDeletion`
+- **Word:** `SynonymSwap`, `NeighborSwap`, `NeutralInsertion`, `NeutralDeletion`
+- **Sentence:** `Paraphrase`, `Formality`, `Politeness`, `Readability`
 
-## 🚀 Key Contributions
-
-- Comprehensive robustness evaluation under:
-  - Character-level perturbations  
-  - Word-level perturbations  
-  - Sentence-level perturbations  
-
-- A **cross-encoder-based reranking approach** for improving entity selection  
-
-- An **outcome-supervised training strategy** for reranker optimization  
-
-
-## ⚙️ Method Overview
-
-#### 🔹 RER-GRAG
-- Expands candidate entity pool (oversampling)
-- Applies cross-encoder reranking 
-- Selects top-$K$ entities for graph expansion
-
-#### 🔹 Tr-RER-GRAG
-- Extends RER-GRAG with outcome-supervised training
-- Optimizes reranker using answer correctness signals
-
-
-## 📊 Evaluation
-
-### Datasets
-- HotpotQA 
-- 2WikiMultiHopQA
-
-### Perturbation Types
-- Character-level (e.g., RandSwap, NeighborSwap)
-- Word-level (e.g., SynonymSwap, NeutralInsertion)
-- Sentence-level (e.g., Paraphrase, Formality)
-
-### Metrics
-- Accuracy (ACC)
