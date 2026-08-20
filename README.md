@@ -5,7 +5,6 @@ This repository provides the implementation and experimental resources for study
 ## Repository Structure
 
 ```text
-.
 ├── Data/
 │   ├── HotpotQA/
 │   │   ├── KG/
