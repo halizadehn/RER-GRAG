@@ -40,16 +40,30 @@ python Perturbations/perturbation_generation.py \
 
 ## RER-GRAG and Tr-RER-GRAG
 
-RER-GRAG modifies only the entity-selection stage of GraphRAG. The adapter in `RER_GRAG/graphrag_adapter.py` intercepts entity mapping, retrieves an expanded pool of `T = alpha*K ` entities using the original GraphRAG mapper, applies the cross-encoder reranker, and returns the reranked top-5 entities to the unchanged graph-expansion and context-building stages.
+RER-GRAG modifies only the entity-selection stage of GraphRAG. The adapter in `RER_GRAG/graphrag_adapter.py` intercepts entity mapping, retrieves an expanded pool of `T = alpha*K` entities using the original GraphRAG mapper, applies the cross-encoder reranker, and returns the reranked top-K entities to the unchanged graph-expansion and context-building stages.
 
 Tr-RER-GRAG uses the same inference pipeline and further optimizes the cross-encoder using outcome-level answer correctness. The candidate pool is treated as a multiple-instance bag, the highest-scoring `K` candidates are aggregated with soft top-K pooling, and the reranker is updated using binary cross-entropy loss.
 
-The default configuration follows the manuscript settings: `K=5`, oversampling factor `alpha=4`, `BAAI/bge-reranker-base`, learning rate `1e-6`, replay buffer size `200`, and replay probability `0.3`.
+Set the OpenAI API key before running the pipeline:
+
+```bash
+export OPENAI_API_KEY=<YOUR_API_KEY>
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:OPENAI_API_KEY="<YOUR_API_KEY>"
+```
+
+### Train Tr-RER-GRAG
 
 ```bash
 python RER_GRAG/train.py \
+  --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
-  --input Data/<DATASET>/Splits/train.csv 
+  --input Data/<DATASET>/Splits/train.csv \
+  --output-dir Models/<DATASET>/Tr-RER-GRAG
 ```
 
 ### Evaluate
@@ -59,8 +73,10 @@ Evaluate the original GraphRAG pipeline:
 ```bash
 python RER_GRAG/evaluate.py \
   --method graphrag \
+  --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
-  --input Data/<DATASET>/Splits/test.csv 
+  --input Data/<DATASET>/Splits/test.csv \
+  --output Results/<DATASET>/GraphRAG_clean.csv
 ```
 
 Evaluate RER-GRAG:
@@ -68,6 +84,7 @@ Evaluate RER-GRAG:
 ```bash
 python RER_GRAG/evaluate.py \
   --method rer-grag \
+  --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
   --input Data/<DATASET>/Splits/test.csv \
   --output Results/<DATASET>/RER_GRAG_clean.csv
@@ -78,9 +95,25 @@ Evaluate Tr-RER-GRAG:
 ```bash
 python RER_GRAG/evaluate.py \
   --method tr-rer-grag \
+  --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
   --input Data/<DATASET>/Splits/test.csv \
   --checkpoint Models/<DATASET>/Tr-RER-GRAG \
   --output Results/<DATASET>/Tr_RER_GRAG_clean.csv
 ```
+
+The same command can evaluate a released perturbation file. When `perturbed_question` is present, it is selected automatically:
+
+```bash
+python RER_GRAG/evaluate.py \
+  --method tr-rer-grag \
+  --config RER_GRAG/config.yaml \
+  --kg-dir Data/<DATASET>/KG \
+  --input Perturbations/<DATASET>/character/RandSwap.csv \
+  --checkpoint Models/<DATASET>/Tr-RER-GRAG \
+  --output Results/<DATASET>/Tr_RER_GRAG_RandSwap.csv
+```
+
+Replace `<DATASET>` with `HotpotQA` or `2WikiMultiHopQA`. 
+
 
