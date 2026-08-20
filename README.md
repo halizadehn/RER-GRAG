@@ -15,7 +15,7 @@ This repository provides the implementation and experimental resources for study
 │       ├── Splits/
 │       └── questions_answers.csv
 │
-├── Perturbations/
+├── Perturbation/
 │   ├── character_level.py
 │   ├── word_level.py
 │   ├── sentence_level.py
@@ -54,27 +54,27 @@ The experiments use 12 query perturbations organized into three linguistic level
 Generate all perturbations for a dataset:
 
 ```bash
-python Perturbations/perturbation_generation.py \
+python Perturbation/perturbation_generation.py \
   --input Data/<DATASET>/questions_answers.csv \
-  --output-dir Perturbations/<DATASET> \
+  --output-dir Perturbation/<DATASET> \
   --level all
 ```
 
 Generate a single perturbation level:
 
 ```bash
-python Perturbations/perturbation_generation.py \
+python Perturbation/perturbation_generation.py \
   --input Data/<DATASET>/questions_answers.csv \
-  --output-dir Perturbations/<DATASET> \
+  --output-dir Perturbation/<DATASET> \
   --level character
 ```
 
 Generate a single perturbation type:
 
 ```bash
-python Perturbations/perturbation_generation.py \
+python Perturbation/perturbation_generation.py \
   --input Data/<DATASET>/questions_answers.csv \
-  --output-dir Perturbations/<DATASET> \
+  --output-dir Perturbation/<DATASET> \
   --level character \
   --type RandSwap
 ```
@@ -150,7 +150,7 @@ python RER_GRAG/evaluate.py \
   --method tr-rer-grag \
   --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
-  --input Perturbations/<DATASET>/character/RandSwap.csv \
+  --input Perturbation/<DATASET>/character/RandSwap.csv \
   --checkpoint Models/<DATASET>/Tr-RER-GRAG \
   --output Results/<DATASET>/Tr_RER_GRAG_RandSwap.csv
 ```
@@ -163,5 +163,5 @@ For exact reproduction of the reported results, use the released:
 
 - fixed train/test splits in `Data/<DATASET>/Splits/`;
 - GraphRAG knowledge-graph artifacts in `Data/<DATASET>/KG/`;
-- fixed perturbation files in `Perturbations/<DATASET>/`;
+- fixed perturbation files in `Perturbation/<DATASET>/`;
 - method and GraphRAG configuration files in `RER_GRAG/`.
