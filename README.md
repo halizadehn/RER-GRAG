@@ -81,7 +81,7 @@ python Perturbation/perturbation_generation.py \
 
 ## RER-GRAG and Tr-RER-GRAG
 
-RER-GRAG modifies only the entity-selection stage of GraphRAG. The adapter in `RER_GRAG/graphrag_adapter.py` intercepts entity mapping, retrieves an expanded pool of `T = alpha*K` entities using the original GraphRAG mapper, applies the cross-encoder reranker, and returns the reranked top-K entities to the unchanged graph-expansion and context-building stages.
+RER-GRAG modifies only the entity-selection stage of GraphRAG. The adapter in `RER_GRAG/graphrag_adapter.py` intercepts entity mapping, retrieves an expanded entity pool using the original GraphRAG mapper, applies the cross-encoder reranker, and returns the reranked top-K entities to the unchanged graph-expansion and context-building stages.
 
 Tr-RER-GRAG uses the same inference pipeline and further optimizes the cross-encoder using outcome-level answer correctness. The candidate pool is treated as a multiple-instance bag, the highest-scoring `K` candidates are aggregated with soft top-K pooling, and the reranker is updated using binary cross-entropy loss.
 
