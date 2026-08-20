@@ -157,4 +157,11 @@ python RER_GRAG/evaluate.py \
 
 Replace `<DATASET>` with `HotpotQA` or `2WikiMultiHopQA`. 
 
+## Reproducibility
 
+For exact reproduction of the reported results, use the released:
+
+- fixed train/test splits in `Data/<DATASET>/Splits/`;
+- GraphRAG knowledge-graph artifacts in `Data/<DATASET>/KG/`;
+- fixed perturbation files in `Perturbations/<DATASET>/`;
+- method and GraphRAG configuration files in `RER_GRAG/`.
