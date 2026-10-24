@@ -103,7 +103,7 @@ $env:OPENAI_API_KEY="<YOUR_API_KEY>"
 python RER_GRAG/train.py \
   --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
-  --input Data/<DATASET>/Splits/train.csv \
+  --input Data/<DATASET>/Splits/train_with_perturbations.csv \
   --output-dir Models/<DATASET>/Tr-RER-GRAG
 ```
 
@@ -150,7 +150,7 @@ python RER_GRAG/evaluate.py \
   --method tr-rer-grag \
   --config RER_GRAG/config.yaml \
   --kg-dir Data/<DATASET>/KG \
-  --input Perturbation/<DATASET>/character/RandSwap.csv \
+  --input Perturbation/<DATASET>/character/RandSwap_test.csv \
   --checkpoint Models/<DATASET>/Tr-RER-GRAG \
   --output Results/<DATASET>/Tr_RER_GRAG_RandSwap.csv
 ```
